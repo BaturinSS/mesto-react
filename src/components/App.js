@@ -1,31 +1,14 @@
 import '../index.css';
 import Header from './header/Header';
+import Footer from './footer/Footer';
+import Main from './main/Main';
 
 function App() {
   return (
     <>
       <Header />
-      <main className="content">
-        <section className="profile">
-          <div className="profile__figure">
-            <div className="profile__ellipse"><img className="plofile__avatar" src="#" alt="аватар" /></div>
-            <div className="profile__info">
-              <div className="profile__group">
-                <h1 className="profile__name">Жак-Ив-Кусто</h1>
-                <button type="button" className="profile__button-edit"></button>
-              </div>
-              <p className="profile__subtitle">Исследователь океана</p>
-            </div>
-          </div>
-          <button type="button" className="profile__button-add"></button>
-        </section>
-        <section className="elements">
-          <ul className="elements__cards"></ul>
-        </section>
-      </main>
-      <footer className="footer">
-        <p className="footer__copyright">© 2022. Батурин Сергей</p>
-      </footer>
+      <Main />
+      <Footer />
       <div className="popup popup_type_profile-edit">
         <div className="popup__container">
           <button className="popup__close" type="button"><img className="popup__image-cross"
