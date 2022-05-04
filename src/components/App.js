@@ -5,22 +5,30 @@ import Main from './main/Main';
 import cross from '../images/image-cross.svg';
 import PopupWithForm from './popupWithForm/PopupWithForm';
 import PopupImage from './imagePopup/ImagePopup';
+import { useState } from "react";
 
 function App() {
+  const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+
   const handleEditAvatarClick = () => {
-    const popupEdit = document.querySelector('.popup_type_avatar-edit');
-    popupEdit.classList.add('popup_opened');
+    setIsEditAvatarPopupOpen(true);
   };
 
   const handleEditProfileClick = () => {
-    const popupEdit = document.querySelector('.popup_type_profile-edit');
-    popupEdit.classList.add('popup_opened');
+    setIsEditProfilePopupOpen(true)
   };
 
   const handleAddPlaceClick = () => {
-    const popupEdit = document.querySelector('.popup_type_card-add');
-    popupEdit.classList.add('popup_opened');
+    setIsAddPlacePopupOpen(true);
   };
+
+  const closeAllPopups = () => {
+    setIsEditAvatarPopupOpen(false);
+    setIsEditProfilePopupOpen(false)
+    setIsAddPlacePopupOpen(false);
+  }
 
   return (
     <>
@@ -38,6 +46,8 @@ function App() {
         name="profile-edit"
         title="Редактировать профиль"
         buttonText="Сохранить"
+        isOpen={isEditProfilePopupOpen}
+        onClose={closeAllPopups}
       >
         <input id="userName-input" className="popup__input popup__input_user-name" required
           placeholder="Имя" spellcheck="true" type="text" name="name" minlength="2" maxlength="40" />
@@ -51,6 +61,8 @@ function App() {
         name="card-add"
         title="Новое место"
         buttonText="Создать"
+        isOpen={isAddPlacePopupOpen}
+        onClose={closeAllPopups}
       >
         <input id='cardTitle-input' className="popup__input popup__input_card-title" required
           placeholder="Название" spellcheck="true" type="text" name="cardTitle" minlength="2" maxlength="30" />
@@ -64,6 +76,8 @@ function App() {
         name="avatar-edit"
         title="Обновить аватар"
         buttonText="Сохранить"
+        isOpen={isEditAvatarPopupOpen}
+        onClose={closeAllPopups}
       >
         <input id="avatarUrl-input" className="popup__input popup__input_avatar-url" required
           placeholder="Ссылка на картинку" spellcheck="true" type="url" name="avatarUrl" />
