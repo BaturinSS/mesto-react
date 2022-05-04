@@ -2,17 +2,37 @@ import '../index.css';
 import Header from './header/Header';
 import Footer from './footer/Footer';
 import Main from './main/Main';
+import cross from '../images/image-cross.svg';
 
 function App() {
+  const handleEditAvatarClick = () => {
+    const popupEdit = document.querySelector('.popup_type_avatar-edit');
+    popupEdit.classList.add('popup_opened');
+  };
+
+  const handleEditProfileClick = () => {
+    const popupEdit = document.querySelector('.popup_type_profile-edit');
+    popupEdit.classList.add('popup_opened');
+  };
+
+  const handleAddPlaceClick = () => {
+    const popupEdit = document.querySelector('.popup_type_card-add');
+    popupEdit.classList.add('popup_opened');
+  };
+
   return (
     <>
       <Header />
-      <Main />
+      <Main
+        onEditAvatar={handleEditAvatarClick}
+        onEditProfile={handleEditProfileClick}
+        onAddPlace={handleAddPlaceClick}
+      />
       <Footer />
       <div className="popup popup_type_profile-edit">
         <div className="popup__container">
           <button className="popup__close" type="button"><img className="popup__image-cross"
-            src="<%=require('./images/image-cross.svg')%>" alt="иконка" /></button>
+            src={cross} alt="иконка" /></button>
           <h3 className="popup__title">Редактировать профиль</h3>
           <form className="popup__form popup__form_type_profile-edit" name="editProfile" action="#" method="get" novalidate>
             <input id="userName-input" className="popup__input popup__input_user-name" required placeholder="Имя"
@@ -28,7 +48,7 @@ function App() {
       <div className="popup popup_type_card-add">
         <div className="popup__container">
           <button className="popup__close" type="button"><img className="popup__image-cross"
-            src="<%=require('./images/image-cross.svg')%>" alt="иконка" /></button>
+            src={cross} alt="иконка" /></button>
           <h3 className="popup__title">Новое место</h3>
           <form className="popup__form popup__form_type_card-add" name="addCard" action="#" method="get" novalidate>
             <input id='cardTitle-input' className="popup__input popup__input_card-title" required placeholder="Название"
@@ -44,7 +64,7 @@ function App() {
       <div className="popup popup_type_delete-confirm">
         <div className="popup__container">
           <button className="popup__close" type="button"><img className="popup__image-cross"
-            src="<%=require('./images/image-cross.svg')%>" alt="иконка" /></button>
+            src={cross} alt="иконка" /></button>
           <h3 className="popup__title popup__title_delete-confirm">Вы уверены?</h3>
           <button className="popup__save-button popup__save-button_delete-confirm" type="submit">Да</button>
         </div>
@@ -52,7 +72,7 @@ function App() {
       <div className="popup popup_type_avatar-edit">
         <div className="popup__container">
           <button className="popup__close" type="button"><img className="popup__image-cross"
-            src="<%=require('./images/image-cross.svg')%>" alt="иконка" /></button>
+            src={cross} alt="иконка" /></button>
           <h3 className="popup__title">Обновить аватар</h3>
           <form className="popup__form popup__form_type_avatar-edit" name="addAvatar" action="#" method="get" novalidate>
             <input id="avatarUrl-input" className="popup__input popup__input_avatar-url" required
@@ -65,7 +85,7 @@ function App() {
       <div className="popup popup_type_image-zoom">
         <div className="popup__box">
           <button className="popup__close" type="button"><img className="popup__image-cross"
-            src="<%=require('./images/image-cross.svg')%>" alt="иконка" /></button>
+            src={cross} alt="иконка" /></button>
           <img className="popup__image" src="#" alt="фотография" />
           <h2 className="popup__subtitle"></h2>
         </div>
@@ -73,7 +93,7 @@ function App() {
       <template id="elements-template">
         <li className="elements__element">
           <button type="button" className="elements__delete"><img className="elements__image-delete"
-            src="<%=require('./images/delete.svg')%>" alt="иконка" /></button>
+            src={cross} alt="иконка" /></button>
           <figure className="elements__rectangle">
             <img className="elements__mask-group" src="#" alt="фотография" />
             <figcaption>
