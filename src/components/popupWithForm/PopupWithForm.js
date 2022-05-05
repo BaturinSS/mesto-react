@@ -8,7 +8,7 @@ function PopupWithForm(props) {
         <button className="popup__close" type="button"><img className="popup__image-cross"
           src={cross} alt="иконка" onClick={props.onClose} /></button>
         <h3 className="popup__title">{props.title}</h3>
-        <form className={`popup__form popup__form_type_${props.name}`} name="addCard" action="#" method="get" novalidate>
+        <form className={`popup__form popup__form_type_${props.name}`} name="addCard" action="#" method="get" noValidate>
           {props.children}
           <button className="popup__save-button" type="submit">{props.buttonText}</button>
         </form>
