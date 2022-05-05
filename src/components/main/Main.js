@@ -52,7 +52,11 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
         <ul className="elements__cards">
           {cards.map(card => {
             return (
-              <Card key={card.cardId} card={card} onCardClick={onCardClick} />
+              <Card
+                key={card.cardId}
+                card={card}
+                onCardClick={onCardClick}
+              />
             );
           })}
         </ul>
