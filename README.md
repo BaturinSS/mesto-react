@@ -8,14 +8,16 @@
 
 Проект реализован под присмотром опытных менторов из материалов предоставленных Яндекс.Практикум по [макету](https://www.figma.com/file/2cn9N9jSkmxD84oJik7xL7/JavaScript.-Sprint-4?node-id=0%3A1) в Figma. Работа проверена опытными ревьюерами. В проекте применяются технологии построения сетки CSS Flexbox и CSS Grid Layout. Это адаптивная верстка под разные устройства. Для адаптации используются медиа запросы.
 
-Логика реализованна на javaScript. Открывается и закрывается окно изменения данных. Вносятся изменения из формы на сайт. Реализована возможность отметки на фото  :hearts: . Сайт подключен к серверу. Все данные сохраняются путем отправки запросов. Проект собран при помощи WebPack.
+Логика реализованна на javaScript. Открывается и закрывается окно изменения данных. Вносятся изменения из формы на сайт. Реализована возможность отметки на фото  :hearts: . Сайт подключен к серверу. Все данные сохраняются путем отправки запросов. Проект собран при помощи React.js.
 
 ## :full_moon: Используемые Технологии:
+  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original-wordmark.svg" title="ReactJS" alt="NodeJS" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-plain-wordmark.svg"  title="CSS3" alt="CSS" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" title="HTML5" alt="HTML" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" title="JavaScript" alt="JavaScript" width="40" height="40"/>&nbsp;
   <img src="https://user-images.githubusercontent.com/78322084/162064174-194ac89a-024d-4839-aae3-22d9ee4e3a33.png"  title="GitHub" alt="GitHub" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/nodejs/nodejs-original-wordmark.svg" title="NodeJS" alt="NodeJS" width="40" height="40"/>&nbsp;
+  
 
 ## :full_moon: Произведена работа:
 
