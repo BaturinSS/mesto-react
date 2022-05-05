@@ -1,4 +1,5 @@
 import React from "react";
+import './Card.css';
 import imageBasket from '../../images/delete.svg';
 
 function Card({ card, onCardClick }) {

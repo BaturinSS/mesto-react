@@ -1,9 +1,9 @@
-import '../index.css';
-import Header from './header/Header';
-import Footer from './footer/Footer';
-import Main from './main/Main';
-import PopupWithForm from './popupWithForm/PopupWithForm';
-import ImagePopup from './imagePopup/ImagePopup';
+import './App.css';
+import Header from '../header/Header';
+import Footer from '../footer/Footer';
+import Main from '../main/Main';
+import PopupWithForm from '../popupWithForm/PopupWithForm';
+import ImagePopup from '../imagePopup/ImagePopup';
 import { useState } from "react";
 
 function App() {
