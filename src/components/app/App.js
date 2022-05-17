@@ -4,13 +4,40 @@ import Footer from '../footer/Footer';
 import Main from '../main/Main';
 import PopupWithForm from '../popupWithForm/PopupWithForm';
 import ImagePopup from '../imagePopup/ImagePopup';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState(null);
+
+  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard;
+
+  useEffect(() => {
+    function closeByEscape(evt) {
+      if (evt.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+    if (isOpen) {
+      document.addEventListener('keydown', closeByEscape);
+      return () => {
+        document.removeEventListener('keydown', closeByEscape);
+      }
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleOverley(e) {
+      if (e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__image-cross')) {
+        closeAllPopups();
+      }
+    }
+    document.addEventListener("mousedown", handleOverley);
+    return () => document.removeEventListener("mousedown", handleOverley);
+  }, [isOpen]);
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -57,7 +84,6 @@ function App() {
         title="Редактировать профиль"
         buttonText="Сохранить"
         isOpen={isEditProfilePopupOpen}
-        onClose={closeAllPopups}
       >
         <input id="userName-input" className="popup__input popup__input_user-name" required
           placeholder="Имя" spellCheck="true" type="text" name="name" minLength="2" maxLength="40" />
