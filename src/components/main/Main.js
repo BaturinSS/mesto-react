@@ -6,13 +6,38 @@ import { TranslationContext } from '../../contexts/CurrentUserContext';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
 
-  const { name, about, avatar } = React.useContext(TranslationContext);
+  const currentUser = React.useContext(TranslationContext);
 
   const [cards, setCards] = useState([]);
 
+  function handleCardLike(card) {
+    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    api
+      .changeLikeCardStatus(card.cardId, !isLiked)
+      .then((newCard) => {
+        setCards((state) => {
+          state.map((c) =>
+            c._id === card._id
+              ? newCard
+              : c
+          )
+        });
+      })
+      .catch((err) => {
+        err.then((res) => {
+          alert(res.message)
+        })
+      })
+  }
+
+  function handleCardDelete() {
+    console.log('delete')
+  }
+
   useEffect(() => {
-    Promise.all([api.getCards()])
-      .then(([cardList]) => {
+    api
+      .getCards()
+      .then((cardList) => {
         const usersCard = cardList.map(card => {
           return {
             name: card.name,
@@ -36,13 +61,13 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       <section className="profile">
         <div className="profile__figure">
           <div className="profile__ellipse" onClick={onEditAvatar}>
-            <img className="plofile__avatar" src={avatar} alt="аватар" /></div>
+            <img className="plofile__avatar" src={currentUser.avatar} alt="аватар" /></div>
           <div className="profile__info">
             <div className="profile__group">
-              <h1 className="profile__name">{name}</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               <button type="button" className="profile__button-edit" onClick={onEditProfile}></button>
             </div>
-            <p className="profile__subtitle">{about}</p>
+            <p className="profile__subtitle">{currentUser.about}</p>
           </div>
         </div>
         <button type="button" className="profile__button-add" onClick={onAddPlace}></button>
@@ -55,6 +80,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                 key={card.cardId}
                 card={card}
                 onCardClick={onCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
               />
             );
           })}
