@@ -5,23 +5,21 @@ import Card from "../card/Card";
 import { TranslationContext } from '../../contexts/CurrentUserContext';
 
 function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-
   const currentUser = React.useContext(TranslationContext);
 
   const [cards, setCards] = useState([]);
+  const [updateCards, setUpdateCards] = useState(false);
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
-    api
-      .changeLikeCardStatus(card.cardId, !isLiked)
+    const changeLikeCardStatus =
+      !isLiked
+        ? api.addLike(card._id)
+        : api.deleteLike(card._id)
+
+    changeLikeCardStatus
       .then((newCard) => {
-        setCards((state) => {
-          state.map((c) =>
-            c._id === card._id
-              ? newCard
-              : c
-          )
-        });
+        setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
       })
       .catch((err) => {
         err.then((res) => {
@@ -30,31 +28,32 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
       })
   }
 
-  function handleCardDelete() {
-    console.log('delete')
+  function handleCardDelete(card) {
+    api
+      .deleteCard(card._id)
+      .then(() => {
+        //setCards((cards) => cards.filter((c) => c._id !== card._id));
+        setUpdateCards(!updateCards)
+      })
+      .catch((err) => {
+        err.then((res) => {
+          alert(res.message)
+        })
+      })
   }
 
   useEffect(() => {
     api
       .getCards()
       .then((cardList) => {
-        const usersCard = cardList.map(card => {
-          return {
-            name: card.name,
-            link: card.link,
-            likes: card.likes,
-            cardId: card._id,
-            ownerId: card.owner._id,
-          };
-        });
-        setCards(usersCard);
+        setCards(cardList);
       })
       .catch((err) => {
         err.then((res) => {
           alert(res.message)
         })
       })
-  }, [])
+  }, [updateCards])
 
   return (
     <div className="content">
@@ -77,7 +76,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
           {cards.map(card => {
             return (
               <Card
-                key={card.cardId}
+                key={card._id}
                 card={card}
                 onCardClick={onCardClick}
                 onCardLike={handleCardLike}
