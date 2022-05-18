@@ -19,6 +19,7 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
             link: card.link,
             likes: card.likes,
             cardId: card._id,
+            ownerId: card.owner._id,
           };
         });
         setCards(usersCard);
