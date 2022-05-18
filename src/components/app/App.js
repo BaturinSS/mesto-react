@@ -7,6 +7,8 @@ import ImagePopup from '../imagePopup/ImagePopup';
 import { useState, useEffect } from "react";
 import { api } from '../utils/api';
 import { TranslationContext } from '../../contexts/CurrentUserContext';
+import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
+import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
 
 function App() {
 
@@ -83,6 +85,24 @@ function App() {
     setSelectedCard(null);
   }
 
+  const handleUpdateUser = (name, about) => {
+    api
+      .editUserInfo(name, about)
+      .then((userData) => {
+        setCurrentUser(userData);
+        closeAllPopups();
+      })
+  }
+
+  const handleEditAvatar = ({ avatar }) => {
+    api
+      .editAvatar(avatar)
+      .then((res) => {
+        setCurrentUser(res);
+        closeAllPopups();
+      })
+  }
+
   return (
     <>
       <TranslationContext.Provider value={currentUser}>
@@ -98,46 +118,45 @@ function App() {
 
         <Footer />
 
-        <PopupWithForm
-          name="profile-edit"
-          title="Редактировать профиль"
-          buttonText="Сохранить"
+        <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
-        >
-          <input id="userName-input" className="popup__input popup__input_user-name" required
-            placeholder="Имя" spellCheck="true" type="text" name="name" minLength="2" maxLength="40" />
-          <span className="userName-input-error popup__input-error"></span>
-          <input id="userProfession-input" className="popup__input popup__input_user-profession" required
-            placeholder="О себе" spellCheck="true" type="text" name="job" minLength="2" maxLength="200" />
-          <span className="userProfession-input-error popup__input-error"></span>
-        </PopupWithForm>
+          onUpdateUser={handleUpdateUser}
+        />
 
         <PopupWithForm
           name="card-add"
           title="Новое место"
           buttonText="Создать"
           isOpen={isAddPlacePopupOpen}
-          onClose={closeAllPopups}
         >
-          <input id='cardTitle-input' className="popup__input popup__input_card-title" required
-            placeholder="Название" spellCheck="true" type="text" name="cardTitle" minLength="2" maxLength="30" />
+          <input
+            id='cardTitle-input'
+            className="popup__input popup__input_card-title"
+            required
+            placeholder="Название"
+            spellCheck="true"
+            type="text"
+            name="cardTitle"
+            minLength="2"
+            maxLength="30"
+          />
           <span className="cardTitle-input-error popup__input-error"></span>
-          <input id="cardLink-input" className="popup__input popup__input_card-link" required
-            placeholder="Ссылка на картинку" spellCheck="true" type="url" name="cardLink" />
+          <input
+            id="cardLink-input"
+            className="popup__input popup__input_card-link"
+            required
+            placeholder="Ссылка на картинку"
+            spellCheck="true"
+            type="url"
+            name="cardLink"
+          />
           <span className="cardLink-input-error popup__input-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm
-          name="avatar-edit"
-          title="Обновить аватар"
-          buttonText="Сохранить"
+        <EditAvatarPopup
           isOpen={isEditAvatarPopupOpen}
-          onClose={closeAllPopups}
-        >
-          <input id="avatarUrl-input" className="popup__input popup__input_avatar-url" required
-            placeholder="Ссылка на картинку" spellCheck="true" type="url" name="avatarUrl" />
-          <span className="avatarUrl-input-error popup__input-error"></span>
-        </PopupWithForm>
+          onUpdateAvatar={handleEditAvatar}
+        />
 
         <PopupWithForm
           name="delete-confirm"
@@ -148,7 +167,8 @@ function App() {
 
         <ImagePopup
           card={selectedCard}
-          onClose={closeAllPopups} />
+          onClose={closeAllPopups}
+        />
 
       </TranslationContext.Provider>
     </>
