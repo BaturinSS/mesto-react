@@ -1,59 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import './Main.css';
-import { api } from '../utils/api';
 import Card from "../card/Card";
 import { TranslationContext } from '../../contexts/CurrentUserContext';
 
-function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
-  const currentUser = React.useContext(TranslationContext);
-
-  const [cards, setCards] = useState([]);
-  const [updateCards, setUpdateCards] = useState(false);
-
-  function handleCardLike(card) {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
-    const changeLikeCardStatus =
-      !isLiked
-        ? api.addLike(card._id)
-        : api.deleteLike(card._id)
-
-    changeLikeCardStatus
-      .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c))
-      })
-      .catch((err) => {
-        err.then((res) => {
-          alert(res.message)
-        })
-      })
-  }
-
-  function handleCardDelete(card) {
-    api
-      .deleteCard(card._id)
-      .then(() => {
-        //setCards((cards) => cards.filter((c) => c._id !== card._id));
-        setUpdateCards(!updateCards)
-      })
-      .catch((err) => {
-        err.then((res) => {
-          alert(res.message)
-        })
-      })
-  }
-
-  useEffect(() => {
-    api
-      .getCards()
-      .then((cardList) => {
-        setCards(cardList);
-      })
-      .catch((err) => {
-        err.then((res) => {
-          alert(res.message)
-        })
-      })
-  }, [updateCards])
+function Main({
+  onEditAvatar,
+  onEditProfile,
+  onAddPlace,
+  onCardClick,
+  onCardLike,
+  cards,
+  onCardDelete
+}) {
+  const currentUser = useContext(TranslationContext);
 
   return (
     <div className="content">
@@ -79,8 +38,8 @@ function Main({ onEditAvatar, onEditProfile, onAddPlace, onCardClick }) {
                 key={card._id}
                 card={card}
                 onCardClick={onCardClick}
-                onCardLike={handleCardLike}
-                onCardDelete={handleCardDelete}
+                onCardLike={onCardLike}
+                onCardDelete={onCardDelete}
               />
             );
           })}
