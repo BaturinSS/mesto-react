@@ -22,27 +22,33 @@ function App() {
 
   const [isConfirmDeletePopupOpen, setIsConfirmDeletePopupOpen] = useState(false);
 
+  const [isDownload, setIsDownload] = useState(false);
+
   const [isDeleteCard, setIsDeleteCard] = useState({});
 
   const [selectedCard, setSelectedCard] = useState(null);
 
   const [cards, setCards] = useState([]);
 
-  const [updateCards, setUpdateCards] = useState(false);
-
-  const isOpen = isEditAvatarPopupOpen || isEditProfilePopupOpen || isAddPlacePopupOpen || selectedCard || isConfirmDeletePopupOpen;
+  const isOpen =
+    isEditAvatarPopupOpen ||
+    isEditProfilePopupOpen ||
+    isAddPlacePopupOpen ||
+    selectedCard ||
+    isConfirmDeletePopupOpen;
 
   useEffect(() => {
-    api
-      .getUserInfo()
-      .then((userData) => setCurrentUser(userData))
+    Promise.all([api.getUserInfo(), api.getCards()])
+      .then(([userData, cards]) => {
+        setCurrentUser(userData);
+        setCards(cards);
+      })
       .catch((err) => {
         err.then((res) => {
           alert(res.message)
         })
       })
   }, []);
-
 
   useEffect(() => {
     function closeByEscape(event) {
@@ -106,6 +112,7 @@ function App() {
   }
 
   const handleUpdateUser = (name, about) => {
+    setIsDownload(true);
     api
       .editUserInfo(name, about)
       .then((userData) => {
@@ -117,9 +124,11 @@ function App() {
           alert(res.message)
         })
       })
+      .finally(() => setIsDownload(false))
   }
 
   const handleEditAvatar = ({ avatar }) => {
+    setIsDownload(true);
     api
       .editAvatar(avatar)
       .then((res) => {
@@ -131,6 +140,7 @@ function App() {
           alert(res.message)
         })
       })
+      .finally(() => setIsDownload(false))
   }
 
   function handleCardLike(card) {
@@ -153,34 +163,33 @@ function App() {
   }
 
   function handleCardDelete(card) {
+    setIsDownload(true);
     api
       .deleteCard(card._id)
       .then(() => {
         //setCards((cards) => cards.filter((c) => c._id !== card._id));
-        setUpdateCards(!updateCards);
         closeAllPopups();
+        api
+          .getCards()
+          .then((cardList) => {
+            setCards(cardList);
+          })
+          .catch((err) => {
+            err.then((res) => {
+              alert(res.message)
+            })
+          })
       })
       .catch((err) => {
         err.then((res) => {
           alert(res.message)
         })
       })
+      .finally(() => setIsDownload(false))
   }
 
-  useEffect(() => {
-    api
-      .getCards()
-      .then((cardList) => {
-        setCards(cardList);
-      })
-      .catch((err) => {
-        err.then((res) => {
-          alert(res.message)
-        })
-      })
-  }, [updateCards])
-
   const handleAddPlaceSubmit = (name, link) => {
+    setIsDownload(true);
     api
       .addCard(name, link)
       .then((newCard) => {
@@ -192,6 +201,7 @@ function App() {
           alert(res.message)
         })
       })
+      .finally(() => setIsDownload(false))
   };
 
   return (
@@ -215,22 +225,26 @@ function App() {
         <EditProfilePopup
           isOpen={isEditProfilePopupOpen}
           onUpdateUser={handleUpdateUser}
+          downloadText={isDownload}
         />
 
         <AddPlacePopup
           onAddPlace={handleAddPlaceSubmit}
           isOpen={isAddPlacePopupOpen}
+          downloadText={isDownload}
         />
 
         <EditAvatarPopup
           onUpdateAvatar={handleEditAvatar}
           isOpen={isEditAvatarPopupOpen}
+          downloadText={isDownload}
         />
 
         <ConfirmDeletePopup
           isOpen={isConfirmDeletePopupOpen}
           card={isDeleteCard}
           isConfirm={handleCardDelete}
+          downloadText={isDownload}
         />
 
         <ImagePopup
