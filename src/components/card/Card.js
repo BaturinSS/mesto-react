@@ -1,11 +1,11 @@
-import React from "react";
+import React, { useContext } from "react";
 import './Card.css';
 import imageBasket from '../../images/delete.svg';
 import { TranslationContext } from '../../contexts/CurrentUserContext';
 
 function Card({ card, onCardClick, onCardLike, onCardDelete }) {
 
-  const currentUser = React.useContext(TranslationContext);
+  const currentUser = useContext(TranslationContext);
 
   const isOwn = card.owner._id === currentUser._id;
 

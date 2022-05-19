@@ -7,12 +7,12 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
   const [description, setDescription] = useState({});
 
-  function handleNameChange(e) {
-    setName(e.target.value);
+  function handleNameChange(event) {
+    setName(event.target.value);
   }
 
-  function handleJobChange(e) {
-    setDescription(e.target.value);
+  function handleJobChange(event) {
+    setDescription(event.target.value);
   }
 
   const currentUser = useContext(TranslationContext);
@@ -22,8 +22,8 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
     setDescription(currentUser.about);
   }, [currentUser]);
 
-  function handleSubmit(e) {
-    e.preventDefault();
+  function handleSubmit(event) {
+    event.preventDefault();
     onUpdateUser(name, description);
   }
 

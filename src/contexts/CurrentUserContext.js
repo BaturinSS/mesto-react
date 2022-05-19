@@ -1,3 +1,3 @@
-import React from "react";
+import { createContext } from "react";
 
-export const TranslationContext = React.createContext();
+export const TranslationContext = createContext();

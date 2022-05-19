@@ -12,7 +12,6 @@ import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
 import AddPlacePopup from '../AddPlacePopup/AddPlacePopup';
 
 function App() {
-
   const [currentUser, setCurrentUser] = useState({});
 
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
@@ -42,8 +41,8 @@ function App() {
 
 
   useEffect(() => {
-    function closeByEscape(evt) {
-      if (evt.key === 'Escape') {
+    function closeByEscape(event) {
+      if (event.key === 'Escape') {
         closeAllPopups();
       }
     }
@@ -57,11 +56,11 @@ function App() {
 
   useEffect(() => {
     if (!isOpen) return;
-    function handleOverley(e) {
-      if (e.target.classList.contains('popup_opened') || e.target.classList.contains('popup__image-cross')) {
+    function handleOverley(event) {
+      if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__image-cross')) {
         closeAllPopups();
       }
-    }
+    };
     document.addEventListener("mousedown", handleOverley);
     return () => document.removeEventListener("mousedown", handleOverley);
   }, [isOpen]);
@@ -71,7 +70,7 @@ function App() {
   };
 
   const handleEditProfileClick = () => {
-    setIsEditProfilePopupOpen(true)
+    setIsEditProfilePopupOpen(true);
   };
 
   const handleAddPlaceClick = () => {
@@ -80,7 +79,6 @@ function App() {
 
   const handleCardClick = (card) => {
     setSelectedCard({
-      isOpened: true,
       name: card.name,
       link: card.link,
     });
@@ -100,6 +98,11 @@ function App() {
         setCurrentUser(userData);
         closeAllPopups();
       })
+      .catch((err) => {
+        err.then((res) => {
+          alert(res.message)
+        })
+      })
   }
 
   const handleEditAvatar = ({ avatar }) => {
@@ -109,10 +112,16 @@ function App() {
         setCurrentUser(res);
         closeAllPopups();
       })
+      .catch((err) => {
+        err.then((res) => {
+          alert(res.message)
+        })
+      })
   }
 
   function handleCardLike(card) {
     const isLiked = card.likes.some(i => i._id === currentUser._id);
+
     const changeLikeCardStatus =
       !isLiked
         ? api.addLike(card._id)
@@ -177,13 +186,13 @@ function App() {
         <Header />
 
         <Main
-          onEditAvatar={handleEditAvatarClick}
           onEditProfile={handleEditProfileClick}
+          onEditAvatar={handleEditAvatarClick}
           onAddPlace={handleAddPlaceClick}
+          onCardDelete={handleCardDelete}
           onCardClick={handleCardClick}
           onCardLike={handleCardLike}
           cards={cards}
-          onCardDelete={handleCardDelete}
         />
 
         <Footer />
@@ -194,13 +203,13 @@ function App() {
         />
 
         <AddPlacePopup
-          isOpen={isAddPlacePopupOpen}
           onAddPlace={handleAddPlaceSubmit}
+          isOpen={isAddPlacePopupOpen}
         />
 
         <EditAvatarPopup
-          isOpen={isEditAvatarPopupOpen}
           onUpdateAvatar={handleEditAvatar}
+          isOpen={isEditAvatarPopupOpen}
         />
 
         <PopupWithForm
