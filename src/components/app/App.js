@@ -30,6 +30,8 @@ function App() {
 
   const [cards, setCards] = useState([]);
 
+  const [isUpdateCards, setIsUpdateCards] = useState(false);
+
   const isOpen =
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
@@ -48,7 +50,7 @@ function App() {
           alert(res.message)
         })
       })
-  }, []);
+  }, [isUpdateCards]);
 
   useEffect(() => {
     function closeByEscape(event) {
@@ -169,16 +171,7 @@ function App() {
       .then(() => {
         //setCards((cards) => cards.filter((c) => c._id !== card._id));
         closeAllPopups();
-        api
-          .getCards()
-          .then((cardList) => {
-            setCards(cardList);
-          })
-          .catch((err) => {
-            err.then((res) => {
-              alert(res.message)
-            })
-          })
+        setIsUpdateCards(!isUpdateCards)
       })
       .catch((err) => {
         err.then((res) => {
@@ -195,6 +188,7 @@ function App() {
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
+        setIsUpdateCards(!isUpdateCards)
       })
       .catch((err) => {
         err.then((res) => {
