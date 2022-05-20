@@ -2,7 +2,15 @@ import React from "react";
 import './PopupWithForm.css';
 import cross from '../../images/image-cross.svg';
 
-function PopupWithForm({ name, isOpen, title, buttonText, children, onSubmit }) {
+function PopupWithForm({
+  name,
+  isOpen,
+  title,
+  buttonText,
+  children,
+  onSubmit,
+  isButtonDisabled
+}) {
   return (
     <div className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
       <div className="popup__container">
@@ -16,7 +24,13 @@ function PopupWithForm({ name, isOpen, title, buttonText, children, onSubmit }) 
           onSubmit={onSubmit}
         >
           {children}
-          <button className="popup__save-button" type="submit">{buttonText}</button>
+          <button
+            className="popup__save-button"
+            type="submit"
+            disabled={isButtonDisabled ? true : false}
+          >
+            {buttonText}
+          </button>
         </form>
       </div>
     </div>

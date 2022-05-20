@@ -32,6 +32,8 @@ function App() {
 
   const [isUpdateCards, setIsUpdateCards] = useState(false);
 
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+
   const isOpen =
     isEditAvatarPopupOpen ||
     isEditProfilePopupOpen ||
@@ -78,15 +80,22 @@ function App() {
   }, [isOpen]);
 
   const handleEditAvatarClick = () => {
+    setIsButtonDisabled(false);
     setIsEditAvatarPopupOpen(true);
   };
 
   const handleEditProfileClick = () => {
+    setIsButtonDisabled(false);
     setIsEditProfilePopupOpen(true);
   };
 
   const handleAddPlaceClick = () => {
+    setIsButtonDisabled(false);
     setIsAddPlacePopupOpen(true);
+  };
+
+  const disableButtonSubmit = () => {
+    setIsButtonDisabled(true);
   };
 
   const handleDeleteCardClick = () => {
@@ -94,6 +103,7 @@ function App() {
   };
 
   const updateDeleteCard = (card) => {
+    setIsButtonDisabled(false);
     setIsDeleteCard(card);
     handleDeleteCardClick();
   };
@@ -220,18 +230,24 @@ function App() {
           isOpen={isEditProfilePopupOpen}
           onUpdateUser={handleUpdateUser}
           downloadText={isDownload}
+          isButtonDisabled={isButtonDisabled}
+          disableButtonSubmit={disableButtonSubmit}
         />
 
         <AddPlacePopup
           onAddPlace={handleAddPlaceSubmit}
           isOpen={isAddPlacePopupOpen}
           downloadText={isDownload}
+          isButtonDisabled={isButtonDisabled}
+          disableButtonSubmit={disableButtonSubmit}
         />
 
         <EditAvatarPopup
           onUpdateAvatar={handleEditAvatar}
           isOpen={isEditAvatarPopupOpen}
           downloadText={isDownload}
+          isButtonDisabled={isButtonDisabled}
+          disableButtonSubmit={disableButtonSubmit}
         />
 
         <ConfirmDeletePopup
@@ -239,6 +255,8 @@ function App() {
           card={isDeleteCard}
           isConfirm={handleCardDelete}
           downloadText={isDownload}
+          isButtonDisabled={isButtonDisabled}
+          disableButtonSubmit={disableButtonSubmit}
         />
 
         <ImagePopup

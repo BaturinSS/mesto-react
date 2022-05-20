@@ -2,7 +2,14 @@ import React, { useState, useContext, useEffect } from "react";
 import PopupWithForm from "../popupWithForm/PopupWithForm";
 import { TranslationContext } from '../../contexts/CurrentUserContext';
 
-function EditProfilePopup({ isOpen, onClose, onUpdateUser, downloadText }) {
+function EditProfilePopup({
+  isOpen,
+  onClose,
+  onUpdateUser,
+  downloadText,
+  isButtonDisabled,
+  disableButtonSubmit
+}) {
   const [name, setName] = useState({});
 
   const [description, setDescription] = useState({});
@@ -24,6 +31,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, downloadText }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    disableButtonSubmit();
     onUpdateUser(name, description);
   }
 
@@ -35,6 +43,7 @@ function EditProfilePopup({ isOpen, onClose, onUpdateUser, downloadText }) {
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={handleSubmit}
+      isButtonDisabled={isButtonDisabled}
     >
       <input
         id="userName-input"

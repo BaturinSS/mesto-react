@@ -1,7 +1,13 @@
 import React, { useState, useEffect } from "react";
 import PopupWithForm from "../popupWithForm/PopupWithForm";
 
-function AddPlacePopup({ isOpen, onAddPlace, downloadText }) {
+function AddPlacePopup({
+  isOpen,
+  onAddPlace,
+  downloadText,
+  isButtonDisabled,
+  disableButtonSubmit
+}) {
   const [name, setName] = useState("");
 
   const [link, setLink] = useState("");
@@ -21,6 +27,7 @@ function AddPlacePopup({ isOpen, onAddPlace, downloadText }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    disableButtonSubmit();
     onAddPlace(name, link);
   }
 
@@ -31,6 +38,7 @@ function AddPlacePopup({ isOpen, onAddPlace, downloadText }) {
       buttonText={downloadText ? "Добавляем карточку..." : "Добавить"}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isButtonDisabled={isButtonDisabled}
     >
       <input
         id='cardTitle-input'

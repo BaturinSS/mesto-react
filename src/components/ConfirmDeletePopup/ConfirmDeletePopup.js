@@ -2,9 +2,17 @@ import React from "react";
 
 import PopupWithForm from "../popupWithForm/PopupWithForm";
 
-function ConfirmDeletePopup({ isOpen, isConfirm, card, downloadText }) {
+function ConfirmDeletePopup({
+  isOpen,
+  isConfirm,
+  card,
+  downloadText,
+  disableButtonSubmit,
+  isButtonDisabled
+}) {
   function handleSubmit(event) {
     event.preventDefault();
+    disableButtonSubmit();
     isConfirm(card);
   }
   return (
@@ -14,6 +22,7 @@ function ConfirmDeletePopup({ isOpen, isConfirm, card, downloadText }) {
       buttonText={downloadText ? "Удаляем карточку..." : "Да"}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isButtonDisabled={isButtonDisabled}
     >
     </PopupWithForm>
   )

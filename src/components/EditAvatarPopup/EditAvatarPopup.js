@@ -1,7 +1,13 @@
 import React, { useRef, useEffect } from "react";
 import PopupWithForm from "../popupWithForm/PopupWithForm";
 
-function EditAvatarPopup({ isOpen, onUpdateAvatar, downloadText }) {
+function EditAvatarPopup({
+  isOpen,
+  onUpdateAvatar,
+  downloadText,
+  isButtonDisabled,
+  disableButtonSubmit
+}) {
   const avatarRef = useRef();
 
   useEffect(() => {
@@ -10,6 +16,7 @@ function EditAvatarPopup({ isOpen, onUpdateAvatar, downloadText }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+    disableButtonSubmit();
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
@@ -22,6 +29,7 @@ function EditAvatarPopup({ isOpen, onUpdateAvatar, downloadText }) {
       buttonText={downloadText ? "Загружаем аватар..." : "Загрузить"}
       isOpen={isOpen}
       onSubmit={handleSubmit}
+      isButtonDisabled={isButtonDisabled}
     >
       <input
         id="avatarUrl-input"
