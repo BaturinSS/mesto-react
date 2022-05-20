@@ -58,7 +58,7 @@ function EditProfilePopup({
         onChange={handleNameChange}
         value={name || ''}
       />
-      <span className="userName-input-error popup__input-error"></span>
+      <span className="userName-input-error popup__input-error">Ошибка</span>
       <input
         id="userProfession-input"
         className="popup__input popup__input_user-profession"
