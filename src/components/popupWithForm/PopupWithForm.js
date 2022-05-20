@@ -9,7 +9,7 @@ function PopupWithForm({ name, isOpen, title, buttonText, children, onSubmit }) 
         <button className="popup__close" type="button">
           <img className="popup__image-cross" src={cross} alt="иконка" />
         </button>
-        <h3 className="popup__title">{title}</h3>
+        <h3 className="popup__title popup__title_delete-confirm">{title}</h3>
         <form
           className={`popup__form popup__form_type_${name}`}
           name={`${name}`}
