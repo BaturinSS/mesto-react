@@ -4,7 +4,7 @@ import Footer from '../footer/Footer';
 import Main from '../main/Main';
 import ImagePopup from '../imagePopup/ImagePopup';
 import { useState, useEffect } from "react";
-import { api } from '../utils/api';
+import { api } from '../utils/Api';
 import { TranslationContext } from '../../contexts/CurrentUserContext';
 import EditProfilePopup from '../EditProfilePopup/EditProfilePopup';
 import EditAvatarPopup from '../EditAvatarPopup/EditAvatarPopup';
@@ -209,62 +209,60 @@ function App() {
   };
 
   return (
-    <>
-      <TranslationContext.Provider value={currentUser}>
+    <TranslationContext.Provider value={currentUser}>
 
-        <Header />
+      <Header />
 
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onEditAvatar={handleEditAvatarClick}
-          onAddPlace={handleAddPlaceClick}
-          onCardDelete={updateDeleteCard}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          cards={cards}
-        />
+      <Main
+        onEditProfile={handleEditProfileClick}
+        onEditAvatar={handleEditAvatarClick}
+        onAddPlace={handleAddPlaceClick}
+        onCardDelete={updateDeleteCard}
+        onCardClick={handleCardClick}
+        onCardLike={handleCardLike}
+        cards={cards}
+      />
 
-        <Footer />
+      <Footer />
 
-        <EditProfilePopup
-          isOpen={isEditProfilePopupOpen}
-          onUpdateUser={handleUpdateUser}
-          downloadText={isDownload}
-          isButtonDisabled={isButtonDisabled}
-          disableButtonSubmit={disableButtonSubmit}
-        />
+      <EditProfilePopup
+        isOpen={isEditProfilePopupOpen}
+        onUpdateUser={handleUpdateUser}
+        downloadText={isDownload}
+        isButtonDisabled={isButtonDisabled}
+        disableButtonSubmit={disableButtonSubmit}
+      />
 
-        <AddPlacePopup
-          onAddPlace={handleAddPlaceSubmit}
-          isOpen={isAddPlacePopupOpen}
-          downloadText={isDownload}
-          isButtonDisabled={isButtonDisabled}
-          disableButtonSubmit={disableButtonSubmit}
-        />
+      <AddPlacePopup
+        onAddPlace={handleAddPlaceSubmit}
+        isOpen={isAddPlacePopupOpen}
+        downloadText={isDownload}
+        isButtonDisabled={isButtonDisabled}
+        disableButtonSubmit={disableButtonSubmit}
+      />
 
-        <EditAvatarPopup
-          onUpdateAvatar={handleEditAvatar}
-          isOpen={isEditAvatarPopupOpen}
-          downloadText={isDownload}
-          isButtonDisabled={isButtonDisabled}
-          disableButtonSubmit={disableButtonSubmit}
-        />
+      <EditAvatarPopup
+        onUpdateAvatar={handleEditAvatar}
+        isOpen={isEditAvatarPopupOpen}
+        downloadText={isDownload}
+        isButtonDisabled={isButtonDisabled}
+        disableButtonSubmit={disableButtonSubmit}
+      />
 
-        <ConfirmDeletePopup
-          isOpen={isConfirmDeletePopupOpen}
-          card={isDeleteCard}
-          isConfirm={handleCardDelete}
-          downloadText={isDownload}
-          isButtonDisabled={isButtonDisabled}
-          disableButtonSubmit={disableButtonSubmit}
-        />
+      <ConfirmDeletePopup
+        isOpen={isConfirmDeletePopupOpen}
+        card={isDeleteCard}
+        isConfirm={handleCardDelete}
+        downloadText={isDownload}
+        isButtonDisabled={isButtonDisabled}
+        disableButtonSubmit={disableButtonSubmit}
+      />
 
-        <ImagePopup
-          card={selectedCard}
-        />
+      <ImagePopup
+        card={selectedCard}
+      />
 
-      </TranslationContext.Provider>
-    </>
+    </TranslationContext.Provider>
   );
 }
 
