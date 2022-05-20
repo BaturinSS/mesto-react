@@ -32,7 +32,7 @@ function App() {
 
   const [isUpdateCards, setIsUpdateCards] = useState(false);
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState({ colorText: false, disableButton: false });
+  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -80,42 +80,27 @@ function App() {
   }, [isOpen]);
 
   const handleEditAvatarClick = () => {
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: false
-    })
+    setIsButtonDisabled(false)
     setIsEditAvatarPopupOpen(true);
   };
 
   const handleEditProfileClick = () => {
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: false
-    })
+    setIsButtonDisabled(false)
     setIsEditProfilePopupOpen(true);
   };
 
   const handleAddPlaceClick = () => {
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: false
-    })
+    setIsButtonDisabled(false)
     setIsAddPlacePopupOpen(true);
   };
 
   const handleDeleteCardClick = () => {
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: false
-    })
+    setIsButtonDisabled(false)
     setIsConfirmDeletePopupOpen(true);
   };
 
   const updateDeleteCard = (card) => {
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: false
-    })
+    setIsButtonDisabled(false)
     setIsDeleteCard(card);
     handleDeleteCardClick();
   };
@@ -191,7 +176,6 @@ function App() {
     api
       .deleteCard(card._id)
       .then(() => {
-        //setCards((cards) => cards.filter((c) => c._id !== card._id));
         closeAllPopups();
         setIsUpdateCards(!isUpdateCards)
       })

@@ -27,10 +27,7 @@ function AddPlacePopup({
 
   function handleSubmit(event) {
     event.preventDefault();
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: true
-    });
+    setIsButtonDisabled(true);
     onAddPlace(name, link);
   }
 

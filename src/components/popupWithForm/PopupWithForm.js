@@ -11,8 +11,6 @@ function PopupWithForm({
   onSubmit,
   isButtonDisabled
 }) {
-  const { colorText, disableButton } = isButtonDisabled;
-
   return (
     <div className={`popup popup_type_${name} ${isOpen && "popup_opened"}`}>
       <div className="popup__container">
@@ -27,9 +25,9 @@ function PopupWithForm({
         >
           {children}
           <button
-            className={`popup__save-button ${colorText && "popup__save-button_disabled"}`}
+            className={`popup__save-button ${false && "popup__save-button_disabled"}`}
             type="submit"
-            disabled={disableButton ? true : false}
+            disabled={isButtonDisabled ? true : false}
           >
             {buttonText}
           </button>

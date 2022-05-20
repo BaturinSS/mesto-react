@@ -12,10 +12,7 @@ function ConfirmDeletePopup({
 }) {
   function handleSubmit(event) {
     event.preventDefault();
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: true
-    });
+    setIsButtonDisabled(true);
     isConfirm(card);
   }
   return (

@@ -31,10 +31,7 @@ function EditProfilePopup({
 
   function handleSubmit(event) {
     event.preventDefault();
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: true
-    });
+    setIsButtonDisabled(true);
     onUpdateUser(name, description);
   }
 

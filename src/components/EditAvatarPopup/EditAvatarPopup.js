@@ -16,10 +16,7 @@ function EditAvatarPopup({
 
   function handleSubmit(event) {
     event.preventDefault();
-    setIsButtonDisabled({
-      colorText: false,
-      disableButton: true
-    });
+    setIsButtonDisabled(true);
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });
