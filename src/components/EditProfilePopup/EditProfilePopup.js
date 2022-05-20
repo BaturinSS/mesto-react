@@ -8,7 +8,7 @@ function EditProfilePopup({
   onUpdateUser,
   downloadText,
   isButtonDisabled,
-  disableButtonSubmit
+  setIsButtonDisabled
 }) {
   const [name, setName] = useState({});
 
@@ -31,7 +31,10 @@ function EditProfilePopup({
 
   function handleSubmit(event) {
     event.preventDefault();
-    disableButtonSubmit();
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: true
+    });
     onUpdateUser(name, description);
   }
 

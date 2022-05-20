@@ -6,7 +6,7 @@ function EditAvatarPopup({
   onUpdateAvatar,
   downloadText,
   isButtonDisabled,
-  disableButtonSubmit
+  setIsButtonDisabled
 }) {
   const avatarRef = useRef();
 
@@ -16,7 +16,10 @@ function EditAvatarPopup({
 
   function handleSubmit(event) {
     event.preventDefault();
-    disableButtonSubmit();
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: true
+    });
     onUpdateAvatar({
       avatar: avatarRef.current.value,
     });

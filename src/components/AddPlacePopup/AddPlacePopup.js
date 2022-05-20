@@ -6,7 +6,7 @@ function AddPlacePopup({
   onAddPlace,
   downloadText,
   isButtonDisabled,
-  disableButtonSubmit
+  setIsButtonDisabled
 }) {
   const [name, setName] = useState("");
 
@@ -27,7 +27,10 @@ function AddPlacePopup({
 
   function handleSubmit(event) {
     event.preventDefault();
-    disableButtonSubmit();
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: true
+    });
     onAddPlace(name, link);
   }
 

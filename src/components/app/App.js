@@ -32,7 +32,7 @@ function App() {
 
   const [isUpdateCards, setIsUpdateCards] = useState(false);
 
-  const [isButtonDisabled, setIsButtonDisabled] = useState(false);
+  const [isButtonDisabled, setIsButtonDisabled] = useState({ colorText: false, disableButton: false });
 
   const isOpen =
     isEditAvatarPopupOpen ||
@@ -80,30 +80,42 @@ function App() {
   }, [isOpen]);
 
   const handleEditAvatarClick = () => {
-    setIsButtonDisabled(false);
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: false
+    })
     setIsEditAvatarPopupOpen(true);
   };
 
   const handleEditProfileClick = () => {
-    setIsButtonDisabled(false);
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: false
+    })
     setIsEditProfilePopupOpen(true);
   };
 
   const handleAddPlaceClick = () => {
-    setIsButtonDisabled(false);
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: false
+    })
     setIsAddPlacePopupOpen(true);
   };
 
-  const disableButtonSubmit = () => {
-    setIsButtonDisabled(true);
-  };
-
   const handleDeleteCardClick = () => {
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: false
+    })
     setIsConfirmDeletePopupOpen(true);
   };
 
   const updateDeleteCard = (card) => {
-    setIsButtonDisabled(false);
+    setIsButtonDisabled({
+      colorText: false,
+      disableButton: false
+    })
     setIsDeleteCard(card);
     handleDeleteCardClick();
   };
@@ -230,7 +242,7 @@ function App() {
         onUpdateUser={handleUpdateUser}
         downloadText={isDownload}
         isButtonDisabled={isButtonDisabled}
-        disableButtonSubmit={disableButtonSubmit}
+        setIsButtonDisabled={setIsButtonDisabled}
       />
 
       <AddPlacePopup
@@ -238,7 +250,7 @@ function App() {
         isOpen={isAddPlacePopupOpen}
         downloadText={isDownload}
         isButtonDisabled={isButtonDisabled}
-        disableButtonSubmit={disableButtonSubmit}
+        setIsButtonDisabled={setIsButtonDisabled}
       />
 
       <EditAvatarPopup
@@ -246,7 +258,7 @@ function App() {
         isOpen={isEditAvatarPopupOpen}
         downloadText={isDownload}
         isButtonDisabled={isButtonDisabled}
-        disableButtonSubmit={disableButtonSubmit}
+        setIsButtonDisabled={setIsButtonDisabled}
       />
 
       <ConfirmDeletePopup
@@ -255,7 +267,7 @@ function App() {
         isConfirm={handleCardDelete}
         downloadText={isDownload}
         isButtonDisabled={isButtonDisabled}
-        disableButtonSubmit={disableButtonSubmit}
+        setIsButtonDisabled={setIsButtonDisabled}
       />
 
       <ImagePopup
