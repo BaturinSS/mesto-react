@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import PopupWithForm from "../popupWithForm/PopupWithForm";
 import { TranslationContext } from '../../contexts/CurrentUserContext';
+import FormValidator from "../FormValidator/FormValidator";
 
 function EditProfilePopup({
   isOpen,
@@ -10,21 +11,30 @@ function EditProfilePopup({
   isButtonDisabled,
   setIsButtonDisabled
 }) {
+  const { setIsEventInput, setIsOpenForm, isValidForm, isValidInput, isErrorMessage } = FormValidator();
+
+  const { nameErrorMessage = '', jobErrorMessage = '' } = isErrorMessage;
+
+  const { nameValidInput = true, jobValidInput = true } = isValidInput;
+
   const [name, setName] = useState({});
 
   const [description, setDescription] = useState({});
 
   function handleNameChange(event) {
+    setIsEventInput(event);
     setName(event.target.value);
   }
 
   function handleJobChange(event) {
+    setIsEventInput(event);
     setDescription(event.target.value);
   }
 
   const currentUser = useContext(TranslationContext);
 
   useEffect(() => {
+    setIsOpenForm(isOpen);
     setName(currentUser.name);
     setDescription(currentUser.about);
   }, [currentUser, isOpen]);
@@ -44,10 +54,11 @@ function EditProfilePopup({
       onClose={onClose}
       onSubmit={handleSubmit}
       isButtonDisabled={isButtonDisabled}
+      isValidForm={isValidForm}
     >
       <input
         id="userName-input"
-        className="popup__input popup__input_user-name"
+        className={`popup__input popup__input_user-name ${!nameValidInput ? "popup__input_type_error" : ''}`}
         required
         placeholder="Имя"
         spellCheck="true"
@@ -58,10 +69,10 @@ function EditProfilePopup({
         onChange={handleNameChange}
         value={name || ''}
       />
-      <span className="userName-input-error popup__input-error">Ошибка</span>
+      <span className={`userName-input-error popup__input-error ${!nameValidInput ? "popup__input-error_active" : ''}`}>{nameErrorMessage}</span>
       <input
         id="userProfession-input"
-        className="popup__input popup__input_user-profession"
+        className={`popup__input popup__input_user-profession ${!jobValidInput ? "popup__input_type_error" : ''}`}
         required
         placeholder="О себе"
         spellCheck="true"
@@ -72,7 +83,7 @@ function EditProfilePopup({
         onChange={handleJobChange}
         value={description || ''}
       />
-      <span className="userProfession-input-error popup__input-error"></span>
+      <span className={`userProfession-input-error popup__input-error ${!jobValidInput ? "popup__input-error_active" : ''}`}>{jobErrorMessage}</span>
     </PopupWithForm>
   )
 }

@@ -12,7 +12,7 @@ function FormValidator() {
   const [isErrorMessage, setIsErrorMessage] = useState({})
 
   useEffect(() => {
-    const popupActiv = document.querySelector(".popup_opened");
+    const popupActiv = document.querySelector('.popup_opened');
     if (!popupActiv) {
       return
     } else {
