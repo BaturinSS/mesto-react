@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PopupWithForm from "../popupWithForm/PopupWithForm";
+import FormValidator from "../FormValidator/FormValidator";
 
 function AddPlacePopup({
   isOpen,
@@ -8,19 +9,28 @@ function AddPlacePopup({
   isButtonDisabled,
   setIsButtonDisabled
 }) {
+  const { setIsEventInput, setIsOpenForm, isValidForm, isValidInput, isErrorMessage } = FormValidator();
+
+  const { cardTitleErrorMessage = '', cardLinkErrorMessage = '' } = isErrorMessage;
+
+  const { cardTitleValidInput = true, cardLinkValidInput = true } = isValidInput;
+
   const [name, setName] = useState("");
 
   const [link, setLink] = useState("");
 
   function handleNameChange(event) {
+    setIsEventInput(event);
     setName(event.target.value);
   };
 
   function handleLinkChange(event) {
+    setIsEventInput(event);
     setLink(event.target.value);
   };
 
   useEffect(() => {
+    setIsOpenForm(isOpen)
     setName("");
     setLink("");
   }, [isOpen]);
@@ -39,10 +49,11 @@ function AddPlacePopup({
       isOpen={isOpen}
       onSubmit={handleSubmit}
       isButtonDisabled={isButtonDisabled}
+      isValidForm={isValidForm}
     >
       <input
         id='cardTitle-input'
-        className="popup__input popup__input_card-title"
+        className={`popup__input popup__input_card-title ${!cardTitleValidInput ? "popup__input_type_error" : ''}`}
         required
         placeholder="Название"
         spellCheck="true"
@@ -53,10 +64,10 @@ function AddPlacePopup({
         value={name}
         onChange={handleNameChange}
       />
-      <span className="cardTitle-input-error popup__input-error"></span>
+      <span className={`cardTitle-input-error popup__input-error ${!cardTitleValidInput ? "popup__input-error_active" : ''}`}>{cardTitleErrorMessage}</span>
       <input
         id="cardLink-input"
-        className="popup__input popup__input_card-link"
+        className={`popup__input popup__input_card-link ${!cardLinkValidInput ? "popup__input_type_error" : ''}`}
         required
         placeholder="Ссылка на картинку"
         spellCheck="true"
@@ -65,7 +76,7 @@ function AddPlacePopup({
         value={link}
         onChange={handleLinkChange}
       />
-      <span className="cardLink-input-error popup__input-error"></span>
+      <span className={`cardLink-input-error popup__input-error ${!cardLinkValidInput ? "popup__input-error_active" : ''}`}>{cardLinkErrorMessage}</span>
     </PopupWithForm>
   )
 }
