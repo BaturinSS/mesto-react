@@ -1,7 +1,7 @@
 class Api {
-  constructor(options) {
-    this._baseUrl = options.baseUrl;
-    this._headers = options.headers;
+  constructor({ baseUrl, headers }) {
+    this._baseUrl = baseUrl;
+    this._headers = headers;
   }
 
   _checkResponse(res) {
@@ -30,10 +30,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
-        name,
-        about
-      })
+      body: JSON.stringify({ name, about })
     })
       .then(this._checkResponse)
   }
@@ -42,10 +39,7 @@ class Api {
     return fetch(`${this._baseUrl}/cards`, {
       method: 'POST',
       headers: this._headers,
-      body: JSON.stringify({
-        name,
-        link
-      })
+      body: JSON.stringify({ name, link })
     })
       .then(this._checkResponse)
   }
@@ -78,9 +72,7 @@ class Api {
     return fetch(`${this._baseUrl}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
-      body: JSON.stringify({
-        avatar
-      })
+      body: JSON.stringify({ avatar })
     })
       .then(this._checkResponse)
   }
@@ -89,7 +81,7 @@ class Api {
 export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-39',
   headers: {
-    authorization: 'ef26a870-ce14-4ae0-b138-67948bcf24ea',
+    'authorization': 'ef26a870-ce14-4ae0-b138-67948bcf24ea',
     'Content-Type': 'application/json'
   }
 });
