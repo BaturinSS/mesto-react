@@ -27,14 +27,15 @@ function FormValidator() {
 
   useEffect(() => {
     if (Object.keys(isEventInput).length !== 0) {
+      const { name } = isEventInput.target;
       setIsValidInput({
         ...isValidInput,
-        [`${isEventInput.target.name}ValidInput`]: isEventInput.target.checkValidity()
+        [`${name}ValidInput`]: isEventInput.target.checkValidity()
       });
 
       setIsErrorMessage({
         ...isErrorMessage,
-        [`${isEventInput.target.name}ErrorMessage`]: isEventInput.target.validationMessage
+        [`${name}ErrorMessage`]: isEventInput.target.validationMessage
       });
 
       setIsValidForm(isEventInput.target.closest('.popup__form').checkValidity());
