@@ -13,13 +13,13 @@ function FormValidator() {
 
   useEffect(() => {
     const popupActiv = document.querySelector('.popup_opened');
-
-    const formActivPopup = popupActiv.querySelector('.popup__form');
-
-    if (!formActivPopup) {
-      return
-    } else {
-      setIsValidForm(formActivPopup.checkValidity());
+    if (popupActiv) {
+      const formActivPopup = popupActiv.querySelector('.popup__form');
+      if (!formActivPopup) {
+        return
+      } else {
+        setIsValidForm(formActivPopup.checkValidity());
+      }
     }
     return (() => {
       setIsEventInput({})
