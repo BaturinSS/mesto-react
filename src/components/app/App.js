@@ -70,13 +70,14 @@ function App() {
 
   useEffect(() => {
     if (!isOpen) return;
-    function handleOverley(event) {
-      if (event.target.classList.contains('popup_opened') || event.target.classList.contains('popup__image-cross')) {
+    function handleOverlay(event) {
+      if (event.target.classList.contains('popup_opened') ||
+        event.target.classList.contains('popup__image-cross')) {
         closeAllPopups();
       }
     };
-    document.addEventListener("mousedown", handleOverley);
-    return () => document.removeEventListener("mousedown", handleOverley);
+    document.addEventListener("mousedown", handleOverlay);
+    return () => document.removeEventListener("mousedown", handleOverlay);
   }, [isOpen]);
 
   const handleEditAvatarClick = () => {
