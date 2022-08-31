@@ -1,4 +1,4 @@
-# :full_moon: [Проект: Место(React)](https://baturinss.github.io/mesto-react/)
+# :full_moon: [Проект: Место(React)](https://baturinss.github.io/mesto-react)
 
 [Видео. Краткий обзор](https://user-images.githubusercontent.com/94468513/163075115-f2bbe1a0-51f3-4118-b5f6-601b5370f4c2.mp4)
 
@@ -32,4 +32,4 @@
   
 ---
 
-## :full_moon: [Ссылка на сайт](https://baturinss.github.io/mesto-react/)    :point_left::point_left::point_left:
+## :full_moon: [Ссылка на сайт](https://baturinss.github.io/mesto-react)    :point_left::point_left::point_left:
